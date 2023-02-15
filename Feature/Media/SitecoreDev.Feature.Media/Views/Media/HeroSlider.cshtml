@@ -1,0 +1,136 @@
+﻿@model SitecoreDev.Feature.Media.ViewModels.HeroSliderViewModel
+
+@if (Model.IsInExperienceEditorMode)
+{
+    @if (Model.HasImages)
+    {
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                @for (int i = 0; i < Model.ImageCount; i++)
+                {
+                    <li data-target="#myCarousel" data-slide-to="@i"
+                        class="@(Model.HeroImages[i].IsActive ? "active" : "")"></li>
+                }
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                @*@foreach (var image in Model.HeroImages)
+                    {
+                        <div class="item @(image.IsActive ? "active" : "")">
+                            <img src="@image.MediaUrl" style="width:100%;"
+                                 alt="@image.AltText" />
+                        </div>
+                    }*@
+
+                <div>
+                    @foreach (var image in Model.HeroImages)
+                    {
+                        <div class="item imageContainer">
+                            @image.Image
+                        </div>
+                    }
+                </div>
+                <div style="clear:both;">
+                    <!-- This button calls the webedit:new command to add a new Item to the content tree -->
+                    <a href="#" class="btn btn-default"
+                       onclick="javascript:Sitecore.PageModes.PageEditor.postRequest'webedit:new(id=@(Model.ParentGuid))')">
+                        Add new image
+                    </a>
+                </div>
+            </div>
+
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+        </div>
+
+    }
+}
+else
+{
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        @for (int i = 0; i < Model.ImageCount; i++)
+        {
+            <li data-target="#myCarousel" data-slide-to="@i"
+                class="@(Model.HeroImages[i].IsActive ? "active" : "")"></li>
+        }
+    </ol>
+    <div class="carousel-inner" role="listbox">
+
+        <div>
+            @foreach (var image in Model.HeroImages)
+            {
+                <div class="item @(image.IsActive ? "active" : "")">
+                    @image.Image
+                </div>
+            }
+        </div>
+        <div style="clear:both;">
+            <!-- This button calls the webedit:new command to add a new Item to the content tree -->
+            <a href="#" class="btn btn-default"
+               onclick="javascript:Sitecore.PageModes.PageEditor.postRequest'webedit:new(id=@(Model.ParentGuid))')">
+                Add new image
+            </a>
+        </div>
+    </div>
+
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+    </a>
+
+</div>
+
+    }
+
+}
+
+@*@model Sitecore.Data.Items.Item
+    @using Sitecore.Data.Fields
+    @using Sitecore.Data.Items
+    @using Sitecore.Resources.Media
+    @if (Model != null)
+    {
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                @{
+                    IEnumerable<Item> heroImages = null;
+                    var heroImagesField = new MultilistField(
+                    Model.Fields["Hero Images"]);
+                    if (heroImagesField != null)
+                    {
+                        heroImages = heroImagesField.GetItems();
+                    }
+                    if (heroImages != null)
+                    {
+                        int i = 1;
+                        foreach (var image in heroImages)
+                        {
+                            var mediaItem = (MediaItem)image;
+                            <div class="item @(i == 1 ? "active" : "")">
+                                <img src="@MediaManager.GetMediaUrl(mediaItem)"
+                                     style="width:1920px;" alt="@mediaItem.Alt" />
+                            </div>
+                            i++;
+                        }
+                    }
+                }
+            </div>
+        </div>
+    }*@

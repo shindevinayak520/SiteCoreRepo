@@ -1,0 +1,14 @@
+﻿@model SitecoreDev.Feature.Product
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(x => x.ProductName)
+    @Html.ValidationMessageFor(x => x.ProductName)
+    @Html.EditorFor(x => x.ProductName)
+    @Html.LabelFor(x => x.ProductDescription)
+    @Html.ValidationMessageFor(x => x.ProductName)
+    @Html.EditorFor(x => x.ProductDescription)
+
+    @Html.ValidationSummary("errorMessage")
+    <input type="submit" />
+}
