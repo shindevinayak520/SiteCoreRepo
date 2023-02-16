@@ -1,12 +1,13 @@
-﻿using System;
+﻿using SitecoreDev.Foundation.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SitecoreDev.Feature.Media.ViewModels
 {
-    interface IHeroSlider
+    public interface IHeroSlider : ICmsEntity
     {
+        IEnumerable<IHeroSliderSlide> Slides { get; set; }
+        List<HeroSliderImageViewModel> HeroImages { get;}
+        int ImageCount { get; }
+        bool HasImages { get; }
     }
 }
